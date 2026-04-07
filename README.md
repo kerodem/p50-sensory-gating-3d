@@ -1,6 +1,6 @@
 # P50 Sensory Gating 3D Simulation
 
-Evidence-constrained interactive simulation of auditory paired-click P50 sensory gating with a black/white visualization theme.
+Evidence-constrained interactive simulation of auditory paired-click P50 sensory gating with a 3D visualization. **Read research-brief.md for more information on research synthesis and reasoning.**
 
 ## What This Repository Contains
 - Interactive 3D brain model with region-level activity dynamics
