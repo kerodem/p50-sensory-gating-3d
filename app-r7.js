@@ -2,6 +2,9 @@ const CYCLE_MS = 2200;
 const S2_DELAY_MS = 500;
 
 const dom = {
+  simView: document.getElementById("sim-view"),
+  ebrainsView: document.getElementById("ebrains-view"),
+  viewMode: document.getElementById("view-mode"),
   canvas: document.getElementById("scene"),
   waveform: document.getElementById("waveform"),
   mode: document.getElementById("mode"),
@@ -215,6 +218,7 @@ const regionDefs = [
 
 const state = {
   mode: "normal",
+  viewMode: "simulation",
   ratio: 0.35,
   speed: 1.0,
   running: true,
@@ -231,6 +235,7 @@ wireControls();
 updateControlLabels();
 updateReadouts(new Map(), 0);
 drawWaveform(0);
+setViewMode("simulation");
 boot();
 
 async function boot() {
@@ -1049,9 +1054,11 @@ function frame(now) {
   }
   const cycleMs = state.simTimeMs % CYCLE_MS;
   const intensities = computeIntensities(cycleMs);
-  updateReadouts(intensities, cycleMs);
-  drawWaveform(cycleMs);
-  engine.tick(cycleMs, intensities);
+  if (state.viewMode === "simulation") {
+    updateReadouts(intensities, cycleMs);
+    drawWaveform(cycleMs);
+    engine.tick(cycleMs, intensities);
+  }
   requestAnimationFrame(frame);
 }
 
@@ -1220,6 +1227,10 @@ function erpValue(ms, ratio) {
 }
 
 function wireControls() {
+  dom.viewMode.addEventListener("change", (event) => {
+    setViewMode(event.target.value);
+  });
+
   dom.mode.addEventListener("change", (event) => {
     state.mode = event.target.value;
     if (state.mode === "normal" && state.ratio > 0.6) {
@@ -1251,6 +1262,16 @@ function wireControls() {
   dom.restart.addEventListener("click", () => {
     state.simTimeMs = 0;
   });
+}
+
+function setViewMode(mode) {
+  state.viewMode = mode === "julich-fmri" ? "julich-fmri" : "simulation";
+  if (dom.viewMode && dom.viewMode.value !== state.viewMode) {
+    dom.viewMode.value = state.viewMode;
+  }
+  const simulationActive = state.viewMode === "simulation";
+  if (dom.simView) dom.simView.classList.toggle("hidden-view", !simulationActive);
+  if (dom.ebrainsView) dom.ebrainsView.classList.toggle("hidden-view", simulationActive);
 }
 
 function updateControlLabels() {

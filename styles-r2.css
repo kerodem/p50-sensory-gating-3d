@@ -44,6 +44,16 @@ body {
   background: linear-gradient(160deg, #060606dd 0%, #000000dd 100%);
 }
 
+.sim-view,
+.ebrains-view {
+  position: absolute;
+  inset: 0;
+}
+
+.hidden-view {
+  display: none;
+}
+
 #scene {
   width: 100%;
   height: 100%;
@@ -57,6 +67,47 @@ body {
   flex-direction: column;
   gap: 10px;
   pointer-events: none;
+}
+
+.ebrains-view {
+  background: #000;
+}
+
+.ebrains-toolbar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid #252525;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #f0f0f0;
+  font-size: 0.78rem;
+}
+
+.ebrains-toolbar a {
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid #2f2f2f;
+  border-radius: 8px;
+  padding: 6px 9px;
+  background: #0a0a0a;
+  white-space: nowrap;
+}
+
+#ebrains-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
 }
 
 .hud-card,
@@ -170,8 +221,17 @@ label {
   font-size: 0.8rem;
 }
 
+.atlas-search-label {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "title"
+    "input";
+  margin-bottom: 8px;
+}
+
 label select,
-label input[type="range"] {
+label input[type="range"],
+label input[type="search"] {
   grid-area: input;
   width: 100%;
 }
@@ -185,7 +245,8 @@ label span {
 
 select,
 button,
-input[type="range"] {
+input[type="range"],
+input[type="search"] {
   appearance: none;
   border: 1px solid #323232;
   border-radius: 8px;
@@ -193,6 +254,10 @@ input[type="range"] {
   color: var(--ink);
   padding: 8px 10px;
   font: inherit;
+}
+
+input[type="search"] {
+  height: 36px;
 }
 
 input[type="range"] {
@@ -266,6 +331,49 @@ button {
   background: linear-gradient(180deg, #121212d8 0%, #080808d8 100%);
 }
 
+.atlas-selected {
+  border: 1px solid #2b2b2b;
+  background: #0a0a0a;
+  color: #d3d3d3;
+  border-radius: 8px;
+  padding: 8px 9px;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.atlas-results {
+  margin-top: 8px;
+  max-height: 190px;
+  overflow: auto;
+  display: grid;
+  gap: 6px;
+}
+
+.atlas-result {
+  width: 100%;
+  text-align: left;
+  display: grid;
+  gap: 2px;
+  border: 1px solid #2f2f2f;
+  background: #090909;
+  border-radius: 8px;
+  padding: 8px 9px;
+  color: #efefef;
+  cursor: pointer;
+}
+
+.atlas-result.active {
+  border-color: #ffffff;
+  background: #131313;
+}
+
+.atlas-result small {
+  color: #ababab;
+  font-size: 0.69rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
 .evidence {
   margin: 0;
   padding-left: 18px;
@@ -285,5 +393,10 @@ button {
   html,
   body {
     overflow: auto;
+  }
+
+  .ebrains-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

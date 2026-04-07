@@ -12,34 +12,57 @@
 <body>
   <div class="layout">
     <section class="viewport">
-      <canvas id="scene" aria-label="3D P50 sensory gating model"></canvas>
+      <div id="sim-view" class="sim-view">
+        <canvas id="scene" aria-label="3D P50 sensory gating model"></canvas>
 
-      <div class="hud">
-        <article class="hud-card">
-          <h1>P50 Sensory Gating</h1>
-          <p class="build-tag">Build r5 (detailed cortex)</p>
-          <p>
-            Evidence-constrained 3D simulation of paired-click gating (S1 at 0 ms, S2 at 500 ms),
-            with cortical-thalamic-hippocampal dynamics.
-          </p>
-          <div class="legend">
-            <span><i class="swatch exc"></i>Excitatory flow</span>
-            <span><i class="swatch inh"></i>Inhibitory flow</span>
-            <span><i class="swatch mod"></i>Cholinergic modulation</span>
-          </div>
-        </article>
+        <div class="hud">
+          <article class="hud-card">
+            <h1>P50 Sensory Gating</h1>
+            <p class="build-tag">Build r7 (dual view: simulation + Julich fMRI)</p>
+            <p>
+              Evidence-constrained 3D simulation of paired-click gating (S1 at 0 ms, S2 at 500 ms),
+              with cortical-thalamic-hippocampal dynamics.
+            </p>
+            <div class="legend">
+              <span><i class="swatch exc"></i>Excitatory flow</span>
+              <span><i class="swatch inh"></i>Inhibitory flow</span>
+              <span><i class="swatch mod"></i>Cholinergic modulation</span>
+            </div>
+          </article>
 
-        <article class="waveform-card">
-          <h2>Modeled ERP Window (0-900 ms)</h2>
-          <canvas id="waveform" width="620" height="200"></canvas>
-          <p id="timeline-readout">Cycle phase: initializing...</p>
-        </article>
+          <article class="waveform-card">
+            <h2>Modeled ERP Window (0-900 ms)</h2>
+            <canvas id="waveform" width="620" height="200"></canvas>
+            <p id="timeline-readout">Cycle phase: initializing...</p>
+          </article>
+        </div>
+      </div>
+
+      <div id="ebrains-view" class="ebrains-view hidden-view">
+        <div class="ebrains-toolbar">
+          <strong>Julich-Brain 3.1 fMRI View (EBRAINS)</strong>
+          <a id="ebrains-open" target="_blank" rel="noopener noreferrer" href="https://atlases.ebrains.eu/viewer/#/a:juelich:iav:atlas:v1.0.0:1/t:minds:core:referencespace:v1.0.0:dafcffc5-4826-4bf1-8ff6-46b8a31ff8e2/p:minds:core:parcellationatlas:v1.0.0:94c1125b-b87e-45e4-901c-00daee7f2579-310/@:0.0.0.-W000.._eCwg.2-FUe3._-s_W.2_evlu..7LIy..0.14gY0~.14gY0..1LSm/vs:v2-ff011b0b">Open Full EBRAINS Viewer</a>
+        </div>
+        <iframe
+          id="ebrains-iframe"
+          title="EBRAINS Julich-Brain 3.1 Viewer"
+          src="https://atlases.ebrains.eu/viewer/#/a:juelich:iav:atlas:v1.0.0:1/t:minds:core:referencespace:v1.0.0:dafcffc5-4826-4bf1-8ff6-46b8a31ff8e2/p:minds:core:parcellationatlas:v1.0.0:94c1125b-b87e-45e4-901c-00daee7f2579-310/@:0.0.0.-W000.._eCwg.2-FUe3._-s_W.2_evlu..7LIy..0.14gY0~.14gY0..1LSm/vs:v2-ff011b0b"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
       </div>
     </section>
 
     <aside class="panel">
       <article class="panel-card">
         <h2>Simulation Controls</h2>
+        <label>
+          View Mode
+          <select id="view-mode">
+            <option value="simulation">Simulation 3D</option>
+            <option value="julich-fmri">Julich-Brain 3.1 fMRI View</option>
+          </select>
+        </label>
         <label>
           Gating Mode
           <select id="mode">
@@ -61,6 +84,18 @@
           <button id="toggle">Pause</button>
           <button id="restart">Restart Cycle</button>
         </div>
+      </article>
+
+      <article class="panel-card">
+        <h2>Julich-Brain Atlas 3.1 Search</h2>
+        <label class="atlas-search-label">
+          Search Atlas Region
+          <input id="region-search" type="search" placeholder="e.g. Te 3, CA3, p32, MD, Id1">
+        </label>
+        <div id="atlas-selected" class="atlas-selected">
+          Selected: none
+        </div>
+        <div id="atlas-results" class="atlas-results"></div>
       </article>
 
       <article class="panel-card">
@@ -103,6 +138,6 @@
     </aside>
   </div>
 
-  <script type="module" src="./app-r5.js"></script>
+  <script type="module" src="./app-r7.js"></script>
 </body>
 </html>

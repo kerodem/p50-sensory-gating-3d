@@ -8,11 +8,13 @@ Evidence-constrained interactive simulation of auditory paired-click P50 sensory
 - Adjustable gating parameters (mode, S2/S1 ratio, playback speed)
 - Live neurological readouts (phase, suppression, active regions, neuron classes)
 - ERP waveform panel (0-900 ms window)
+- Julich-Brain Cytoarchitectonic Atlas (v3.1) region metadata integration
+- Interactive atlas search + focus/highlight of each mapped region
 - Source-backed research brief with peer-reviewed citations
 
 ## Project Structure
 - `index.html`: Main simulation UI
-- `app-r5.js`: Current cache-busted runtime (active)
+- `app-r7.js`: Current cache-busted runtime (active)
 - `styles-r2.css`: Current monochrome theme (active)
 - `app.js`: Previous runtime variant kept for reference
 - `styles.css`: Previous theme variant kept for reference
@@ -35,6 +37,12 @@ Then open [http://localhost:8000](http://localhost:8000).
 - **Speed**
   - Playback speed scaling
 - **Pause / Restart Cycle**
+- **Julich-Brain Atlas 3.1 Search**
+  - Search by atlas name, short code, or full Julich ID
+  - Click result to focus/highlight the corresponding model region
+- **View Mode**
+  - `Simulation 3D`: current local model
+  - `Julich-Brain 3.1 fMRI View`: embedded EBRAINS atlas viewer
 
 ## Scientific Model Notes
 This is a mechanistic educational simulation constrained by published regional/timing findings. It does not claim literal single-neuron precision in a living human brain.
@@ -51,7 +59,7 @@ This is a mechanistic educational simulation constrained by published regional/t
 
 ## Browser Notes
 - If the browser has stale cache, hard refresh.
-- Build banner `Build r5 (detailed cortex)` confirms latest frontend bundle.
+- Build banner `Build r7 (dual view: simulation + Julich fMRI)` confirms latest frontend bundle.
 
 ## License
 No license set yet. Add one if you plan to distribute.
