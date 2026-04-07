@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P50 Sensory Gating 3D Simulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles-r2.css">
+</head>
+<body>
+  <div class="layout">
+    <section class="viewport">
+      <canvas id="scene" aria-label="3D P50 sensory gating model"></canvas>
+
+      <div class="hud">
+        <article class="hud-card">
+          <h1>P50 Sensory Gating</h1>
+          <p class="build-tag">Build r4 (cache-busted)</p>
+          <p>
+            Evidence-constrained 3D simulation of paired-click gating (S1 at 0 ms, S2 at 500 ms),
+            with cortical-thalamic-hippocampal dynamics.
+          </p>
+          <div class="legend">
+            <span><i class="swatch exc"></i>Excitatory flow</span>
+            <span><i class="swatch inh"></i>Inhibitory flow</span>
+            <span><i class="swatch mod"></i>Cholinergic modulation</span>
+          </div>
+        </article>
+
+        <article class="waveform-card">
+          <h2>Modeled ERP Window (0-900 ms)</h2>
+          <canvas id="waveform" width="620" height="200"></canvas>
+          <p id="timeline-readout">Cycle phase: initializing...</p>
+        </article>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <article class="panel-card">
+        <h2>Simulation Controls</h2>
+        <label>
+          Gating Mode
+          <select id="mode">
+            <option value="normal">Typical Inhibitory Gating</option>
+            <option value="impaired">Impaired Gating (Schizophrenia-like)</option>
+          </select>
+        </label>
+        <label>
+          S2/S1 Ratio (Simulated)
+          <input id="ratio" type="range" min="0.2" max="1.05" step="0.01" value="0.35">
+          <span id="ratio-value">0.35</span>
+        </label>
+        <label>
+          Speed
+          <input id="speed" type="range" min="0.5" max="2.5" step="0.1" value="1.0">
+          <span id="speed-value">1.0x</span>
+        </label>
+        <div class="button-row">
+          <button id="toggle">Pause</button>
+          <button id="restart">Restart Cycle</button>
+        </div>
+      </article>
+
+      <article class="panel-card">
+        <h2>Live Neurological Breakdown</h2>
+        <ul class="metrics">
+          <li><strong>Current Phase:</strong> <span id="phase">-</span></li>
+          <li><strong>P50 Suppression:</strong> <span id="suppression">-</span></li>
+          <li><strong>Most Active Regions:</strong> <span id="active-regions">-</span></li>
+          <li><strong>Simulated Neuron Classes:</strong> <span id="active-neurons">-</span></li>
+        </ul>
+
+        <div class="population-grid">
+          <div><span>Thalamocortical Relay</span><b id="thalamic-pop">0%</b></div>
+          <div><span>Cortical Pyramidal (STG/PFC)</span><b id="cortical-pop">0%</b></div>
+          <div><span>Hippocampal CA3 Pyramidal</span><b id="ca3-pop">0%</b></div>
+          <div><span>GABA Interneurons</span><b id="gaba-pop">0%</b></div>
+          <div><span>Septal Cholinergic (alpha7-linked)</span><b id="cholinergic-pop">0%</b></div>
+        </div>
+      </article>
+
+      <article class="panel-card warning">
+        <h2>Resolution Limits</h2>
+        <p>
+          This model is mechanistic and evidence-based, but not literal single-neuron ground truth.
+          Current human EEG/fMRI cannot resolve every neuron "down to the pixel." It estimates
+          population-level activity and timing.
+        </p>
+      </article>
+
+      <article class="panel-card">
+        <h2>Evidence Anchors</h2>
+        <ul class="evidence">
+          <li>Paired-click standard: S1-S2 = 500 ms.</li>
+          <li>P50 peak: ~50 ms cortical response window.</li>
+          <li>Late hippocampal gating contribution: ~250 ms.</li>
+          <li>Core network: STG, thalamus, DLPFC, hippocampus, cingulate/insula/claustrum.</li>
+          <li>Gating deficit in schizophrenia mainly reflects weaker S2 suppression.</li>
+        </ul>
+      </article>
+    </aside>
+  </div>
+
+  <script type="module" src="./app-r4.js"></script>
+</body>
+</html>
