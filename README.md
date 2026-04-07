@@ -12,7 +12,7 @@ Evidence-constrained interactive simulation of auditory paired-click P50 sensory
 
 ## Project Structure
 - `index.html`: Main simulation UI
-- `app-r4.js`: Current cache-busted runtime (active)
+- `app-r5.js`: Current cache-busted runtime (active)
 - `styles-r2.css`: Current monochrome theme (active)
 - `app.js`: Previous runtime variant kept for reference
 - `styles.css`: Previous theme variant kept for reference
@@ -51,7 +51,7 @@ This is a mechanistic educational simulation constrained by published regional/t
 
 ## Browser Notes
 - If the browser has stale cache, hard refresh.
-- Build banner `Build r4 (cache-busted)` confirms latest frontend bundle.
+- Build banner `Build r5 (detailed cortex)` confirms latest frontend bundle.
 
 ## License
 No license set yet. Add one if you plan to distribute.
